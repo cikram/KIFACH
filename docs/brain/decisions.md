@@ -1,6 +1,6 @@
 # Decisions
 
-Record a choice here only when the team has made it. Include date, reason, and any alternative that mattered. Keep unchosen ideas in [README.md](README.md).
+Record a choice here only when the team has made it. Include date, reason, and any alternative that mattered. Keep unchosen ideas in [brainstorm.md](brainstorm.md) and open questions in [the docs index](../README.md).
 
 ## 2026-09-27 — Project scope
 
@@ -19,6 +19,18 @@ Record a choice here only when the team has made it. Include date, reason, and a
 - **Choice:** Use `backend/app/` with `api/`, `domain/`, `prompts/`, `services/`, and `main.py`.
 - **Reason:** This is the user's requested structure for splitting backend work.
 - **Source:** User-supplied structure image and follow-up instruction.
+
+## 2026-09-27 — Runnable backend scaffold *(superseded)*
+
+- **Choice:** Use a local Python standard library HTTP server with a `/health` endpoint as the temporary backend run path.
+- **Reason:** It let the team create a virtual environment and start a verifiable process without adding dependencies or choosing the product API framework prematurely.
+- **Superseded by:** the FastAPI entry below.
+
+## 2026-09-27 — FastAPI backend
+
+- **Choice:** Replace the temporary standard library server with FastAPI, run through Uvicorn.
+- **Reason:** The user chose FastAPI for the backend.
+- **Scope then:** `/health` was the only route. The full REST, SSE, and WebSocket surface was built on this choice later the same day.
 
 ## 2026-09-27 — The model proposes; reviewed code decides
 
