@@ -1,8 +1,22 @@
-frontend/node_modules/
-frontend/dist/
+# Runtime data: uploads, extracted frames, records, and cached responses
+data/
+
+# Python
+.venv/
 **/__pycache__/
 *.py[cod]
-.venv/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Node and build output
+frontend/node_modules/
+frontend/dist/
+frontend/playwright-report/
+frontend/test-results/
+frontend/.vite/
+
+# Secrets
 .env
 .env.*
 !.env.example

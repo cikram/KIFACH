@@ -19,3 +19,36 @@ Record a choice here only when the team has made it. Include date, reason, and a
 - **Choice:** Use `backend/app/` with `api/`, `domain/`, `prompts/`, `services/`, and `main.py`.
 - **Reason:** This is the user's requested structure for splitting backend work.
 - **Source:** User-supplied structure image and follow-up instruction.
+
+## 2026-09-27 — The model proposes; reviewed code decides
+
+- **Choice:** The vision model only describes what is visible and proposes a draft procedure. A pure-Python engine, running against an expert-reviewed procedure, decides every step state and the verdict.
+- **Reason:** If the model both observes and judges, a misread frame and a real learner error are indistinguishable. Splitting them makes each verdict replayable and inspectable.
+- **Consequence:** `POST /api/attempts/{id}/replay` re-runs the stored observation log and must reproduce the result exactly. The engine has no network, disk, clock, or randomness.
+
+## 2026-09-27 — Three verdicts, and absence is not silence
+
+- **Choice:** `VERIFIED`, `NOT_VERIFIED`, and `INCONCLUSIVE`. A step may be reported as skipped only when an observation explicitly says the checkpoint area was visible and the expected result was not there.
+- **Reason:** "We never saw the resistor" is not evidence that the resistor is missing. Failing a learner on missing footage would be the most damaging thing this product could do.
+- **Alternative rejected:** A pass/fail score with a confidence number, which hides the difference between a mistake and a bad camera angle.
+
+## 2026-09-27 — Publication requires human confirmation of every rule
+
+- **Choice:** A draft cannot be published until every model-proposed ordering or safety rule is confirmed or removed, and every step has a checkpoint. Proposals are labelled as proposals in the UI until then.
+- **Reason:** A rule nobody read is not a standard to judge anyone against.
+
+## 2026-09-27 — Stack
+
+- **Choice:** FastAPI + Pydantic v2 + OpenCV (headless) on the backend; Vite + React + TypeScript strict + Tailwind + @xyflow/react on the frontend; JSON files under `data/`; pytest and Playwright.
+- **Reason:** Matches the delivery brief, needs no ffmpeg or GPU, and runs from one command on Windows, macOS, and Linux.
+- **Detail:** A tiny hash router replaced a routing library — six screens, no nested routes.
+
+## 2026-09-27 — Demo fixtures are VP8 WebM, not MP4
+
+- **Choice:** `scripts/make_synthetic_video.py` writes VP8 in WebM.
+- **Reason:** OpenCV's `mp4v` writer produces MPEG-4 Part 2, which browsers cannot decode, so evidence clicks seeked a blank player. OpenCV here cannot write H.264 without the OpenH264 DLL. VP8/WebM is the one format OpenCV writes and reads and every target browser plays.
+
+## 2026-09-27 — The offline mock refuses unknown footage
+
+- **Choice:** The mock provider answers only for media it can identify (scenario hint, registered sha256, or a recognisable sample filename). For anything else it raises an actionable error.
+- **Reason:** Inventing an assessment for a judge's own video would be a fabricated model result wearing a MOCK badge.

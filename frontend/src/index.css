@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * KIFACH is a control room for skills: dark by default, calm, industrial.
+ * Every state colour is paired with a label and an icon in the UI, so colour
+ * is never the only signal.
+ */
+:root {
+  --surface: #14161a;
+  --surface-raised: #1b1e24;
+  --surface-sunken: #0f1114;
+  --line: #2b3038;
+  --ink: #eef1f5;
+  --ink-muted: #a7b0bd;
+  --ink-faint: #737d8c;
+  --accent: #4da3ff;
+  --accent-soft: rgba(77, 163, 255, 0.14);
+  --ok: #43c47c;
+  --warn: #e8a33d;
+  --danger: #ff6b6b;
+  --unsure: #b98bff;
+  --pending: #7c8794;
+  color-scheme: dark;
+}
+
+[data-theme="light"] {
+  --surface: #f6f7f9;
+  --surface-raised: #ffffff;
+  --surface-sunken: #eceef2;
+  --line: #d6dae1;
+  --ink: #171a1f;
+  --ink-muted: #4d5663;
+  --ink-faint: #737d8c;
+  --accent: #1f6fd0;
+  --accent-soft: rgba(31, 111, 208, 0.12);
+  --ok: #17804a;
+  --warn: #9a6100;
+  --danger: #c2321f;
+  --unsure: #6a3fb5;
+  --pending: #6a7382;
+  color-scheme: light;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--surface);
+  color: var(--ink);
+  font-family: Inter, "Segoe UI", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@layer components {
+  .panel {
+    @apply rounded-panel border border-line bg-surface-raised;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-line
+      bg-surface-raised px-3 py-2 text-sm font-medium text-ink transition-colors
+      hover:bg-surface-sunken disabled:cursor-not-allowed disabled:opacity-50;
+  }
+  .btn-primary {
+    @apply border-transparent bg-[var(--accent)] text-[#06131f] hover:opacity-90
+      hover:bg-[var(--accent)];
+  }
+  .btn-ghost {
+    @apply border-transparent bg-transparent hover:bg-surface-sunken;
+  }
+  .field {
+    @apply w-full rounded-lg border border-line bg-surface-sunken px-3 py-2 text-sm
+      text-ink placeholder:text-ink-faint;
+  }
+  .label {
+    @apply mb-1 block text-xs font-semibold uppercase tracking-wide text-ink-muted;
+  }
+  .mono {
+    font-family: "JetBrains Mono", Consolas, SFMono-Regular, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-xs
+      font-medium;
+  }
+}
+
+/* Keep the graph readable in both themes. */
+.react-flow__edge-path {
+  stroke: var(--line);
+  stroke-width: 1.5;
+}
+.react-flow__edge.rule-edge .react-flow__edge-path {
+  stroke: var(--warn);
+  stroke-width: 2;
+  stroke-dasharray: 6 4;
+}
+.react-flow__attribution {
+  display: none;
+}
+.react-flow__controls-button {
+  background: var(--surface-raised);
+  border-bottom: 1px solid var(--line);
+  color: var(--ink-muted);
+  fill: var(--ink-muted);
+}
+.react-flow__controls-button:hover {
+  background: var(--surface-sunken);
+}
+.react-flow__controls {
+  box-shadow: none;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.react-flow__handle {
+  background: var(--line);
+  border: none;
+  width: 6px;
+  height: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

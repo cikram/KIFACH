@@ -1,15 +1,43 @@
-# Source layout and handoff seams
+# Source layout
 
-The backend files are real Python source with empty functions. The frontend is a React shell whose components render nothing yet. Python, React, and the minimal Vite development runner are the only current tooling choices; no web API framework, model, storage, or final schema has been selected.
+The prototype is built. This is where each piece lives and what it owns.
 
-| Workstream | Files | Responsibility |
+## Backend (`backend/app/`)
+
+| Area | Files | Responsibility |
 | --- | --- | --- |
-| Shared shapes | `backend/app/domain/models.py` | Replace placeholder types once adjacent workstreams agree on fields. |
-| Domain | `backend/app/domain/skill_graph.py`, `verifier.py` | Review and validate procedures; assess learner observations. |
-| Services | `backend/app/services/video.py`, `observation_extractor.py`, `skill_compiler.py` | Accept media, extract observations, draft procedures, and locate evidence. |
-| API surface | `backend/app/api/skills.py`, `runs.py` | Entry points for teach, review, and practice. No transport is chosen yet. |
-| Entry point | `backend/app/main.py` | Placeholder for assembling the backend when a server approach is chosen. |
-| Prompts | `backend/app/prompts/` | Reserved for prompts after the perception approach is tested. |
-| React experience | `frontend/src/App.jsx`, `frontend/src/components/` | Provide entry points for capture, review, practice, feedback, and evidence. |
+| Shared contract | `domain/models.py` | Every payload the API, engine, and frontend share. `scripts/gen_types.py` generates the TypeScript from it |
+| Configuration | `config.py` | One place for every environment variable and default |
+| Procedure | `domain/skill_graph.py` | Validation (ids, references, checkpoints, cycles), the bounded repair pass, review bookkeeping, publication |
+| Engine | `domain/verifier.py` | The deterministic assessment. Pure Python: no network, disk, clock, or randomness |
+| Media | `services/video.py` | Upload validation, frame sampling at true source timestamps, windowing, evidence refs, media path safety |
+| Teach | `services/skill_compiler.py` | Expert media -> window descriptions -> proposal -> validation -> flagged draft |
+| Verify | `services/observation_extractor.py` | Learner media -> observations -> normalization -> engine -> attempt |
+| Jobs | `services/jobs.py` | Background jobs with a replayable SSE event log |
+| Storage | `services/storage.py` | Atomic JSON records under `data/`, collision-resistant ids |
+| Providers | `providers/http_vlm.py`, `mock.py`, `cache.py`, `scenarios.py` | NVIDIA NIM and OpenAI-compatible endpoints, the scripted offline provider, the response cache, and the demo scripts |
+| Prompts | `prompts/__init__.py` | Prompt text plus the JSON shape each answer must match. The version is part of the cache key |
+| API | `api/health.py`, `videos.py`, `skills.py`, `runs.py`, `live.py` | REST, SSE, and the live WebSocket. One error shape throughout |
+| Entry point | `main.py` | App factory, error handlers, static frontend, `/samples` |
 
-Before implementing a seam, agree on its data shape and ownership with adjacent workstreams. Rename or replace the stubs as the first end-to-end slice clarifies the design.
+## Frontend (`frontend/src/`)
+
+| Area | Files | Responsibility |
+| --- | --- | --- |
+| Shell | `App.tsx`, `lib/router.tsx`, `lib/routes.ts` | Header, provider badge, theme, hash routing |
+| Contract | `types/api.ts` | Generated from the backend models. Never edited by hand |
+| Client | `lib/api.ts` | Every request, with the backend's error code and message preserved |
+| Streaming | `hooks/useJobStream.ts` | Resumable SSE with a one-shot state recovery fallback |
+| Screens | `views/*.tsx` | Home, Teach, Review, Practice, Verdict, Live, Demo |
+| Pieces | `components/*.tsx` | Evidence player, procedure graph, review editor, checklist, alerts, event log, badges |
+
+## Everything else
+
+| Path | What |
+| --- | --- |
+| `backend/tests/` | 110 tests, including a network-blocking plugin |
+| `frontend/e2e/` | Playwright specs that drive the delivered app and capture the screenshots |
+| `scripts/` | Fixture generator, TypeScript generator |
+| `samples/` | Bundled demo footage and the recording guide |
+| `data/` | Runtime media and records. Gitignored |
+| `run.py` | One-command start for all three platforms |

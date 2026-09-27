@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 120" width="520" height="120" role="img" aria-label="KIFACH — Show once. Teach forever.">
+  <rect width="520" height="120" rx="16" fill="#14161a"/>
+  <g transform="translate(28 28)">
+    <rect x="0.5" y="0.5" width="63" height="63" rx="16" fill="#0f1114" stroke="#2b3038"/>
+    <path d="M16 46 V18" stroke="#a7b0bd" stroke-width="5" stroke-linecap="round"/>
+    <path d="M16 32 L30 19" stroke="#a7b0bd" stroke-width="5" stroke-linecap="round"/>
+    <path d="M26 34 l9 9 L51 20" fill="none" stroke="#4da3ff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <text x="112" y="56" font-family="Inter, Segoe UI, system-ui, sans-serif" font-size="34" font-weight="600" letter-spacing="7.5" fill="#eef1f5">KIFACH</text>
+  <text x="114" y="82" font-family="Inter, Segoe UI, system-ui, sans-serif" font-size="15" letter-spacing="1.2" fill="#a7b0bd">Show once. Teach forever.</text>
+</svg>
