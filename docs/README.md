@@ -1,6 +1,11 @@
-# KIFACH brain
+# KIFACH documentation
 
-Updated: 2026-09-27. This is the handoff entry point for new sessions.
+`docs/` holds material to share with the team. `docs/brain/` holds decisions, progress, proposals, and source-layout context for future work sessions.
+
+## Share with the team
+
+- [Five-person work split](team-plan.md): owners, file areas, deliverables, handoffs, and submission checkpoints.
+- [Source layout](brain/components.md): where each backend and frontend workstream starts.
 
 ## Product brief
 
@@ -17,7 +22,14 @@ The hackathon is GOMYCODE “Come Build with AI” in Morocco, in partnership wi
 
 Expert media → observations with time ranges → reviewable procedure with steps and dependencies → learner media → observations → assessment with evidence. A human should be able to inspect and amend the derived procedure. The assessor should distinguish supported completion, a specific violation, incomplete footage, and uncertain observation. Independent steps may allow more than one valid order.
 
-The empty Python functions under [`backend/app/`](../../backend/app/) and React components under [`frontend/`](../../frontend/) expose seams for parallel work. Their [layout](components.md) is a starting point to discuss, not a fixed contract.
+The Python product functions under [`backend/app/`](../backend/app/) and React components under [`frontend/`](../frontend/) expose seams for parallel work. FastAPI currently serves only a health check. Their [layout](brain/components.md) is a starting point to discuss, not a fixed contract.
+
+## Session notes in `docs/brain/`
+
+- [Decisions](brain/decisions.md): choices the team has actually made and why.
+- [Progress](brain/progress.md): current state, verification, and next checkpoint.
+- [Brainstorm](brain/brainstorm.md): promising but unchosen approaches and demo cases.
+- [Components](brain/components.md): source ownership and handoff seams.
 
 ## Open decisions
 
@@ -25,8 +37,5 @@ The empty Python functions under [`backend/app/`](../../backend/app/) and React 
 - Which parts of the loop use live capture versus uploaded recordings for the first demo?
 - What exact observation, procedure, and assessment schemas will the workstreams share?
 - Which model endpoint or other perception method can the team actually access and validate during the event?
-- What backend server, UI navigation, persistence, and deployment path fit the team and venue?
+- What UI navigation, persistence, and deployment path fit the team and venue?
 - How will correction be shown: continuation of an attempt, a new attempt, or both?
-
-See [decisions.md](decisions.md) for confirmed choices and [progress.md](progress.md) for the latest checkpoint.
-See [brainstorm.md](brainstorm.md) for promising approaches and demo cases that remain unchosen.
